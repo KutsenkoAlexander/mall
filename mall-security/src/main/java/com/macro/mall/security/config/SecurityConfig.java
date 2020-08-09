@@ -1,6 +1,13 @@
 package com.macro.mall.security.config;
 
-import com.macro.mall.security.component.*;
+//import com.macro.mall.security.component.;
+import com.macro.mall.security.component.DynamicAccessDecisionManager;
+import com.macro.mall.security.component.DynamicSecurityFilter;
+import com.macro.mall.security.component.DynamicSecurityMetadataSource;
+import com.macro.mall.security.component.DynamicSecurityService;
+import com.macro.mall.security.component.JwtAuthenticationTokenFilter;
+import com.macro.mall.security.component.RestAuthenticationEntryPoint;
+import com.macro.mall.security.component.RestfulAccessDeniedHandler;
 import com.macro.mall.security.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

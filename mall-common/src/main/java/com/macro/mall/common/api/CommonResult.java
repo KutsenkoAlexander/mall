@@ -1,7 +1,7 @@
 package com.macro.mall.common.api;
 
 /**
- * 通用返回对象
+ * Общий объект возврата
  * Created by macro on 2019/4/19.
  */
 public class CommonResult<T> {
@@ -19,80 +19,80 @@ public class CommonResult<T> {
     }
 
     /**
-     * 成功返回结果
+     * Успешно возвращенные результаты
      *
-     * @param data 获取的数据
+     * @param data Полученные данные
      */
     public static <T> CommonResult<T> success(T data) {
         return new CommonResult<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
     }
 
     /**
-     * 成功返回结果
+     * Полученные данные
      *
-     * @param data 获取的数据
-     * @param  message 提示信息
+     * @param data Полученные данные
+     * @param  message Оперативная информация
      */
     public static <T> CommonResult<T> success(T data, String message) {
         return new CommonResult<T>(ResultCode.SUCCESS.getCode(), message, data);
     }
 
     /**
-     * 失败返回结果
-     * @param errorCode 错误码
+     * Вернуть результат при неудаче
+     * @param errorCode код ошибки
      */
     public static <T> CommonResult<T> failed(IErrorCode errorCode) {
         return new CommonResult<T>(errorCode.getCode(), errorCode.getMessage(), null);
     }
 
     /**
-     * 失败返回结果
-     * @param errorCode 错误码
-     * @param message 错误信息
+     * Вернуть результат при неудаче
+     * @param errorCode код ошибки
+     * @param message Сообщение об ошибке
      */
     public static <T> CommonResult<T> failed(IErrorCode errorCode,String message) {
         return new CommonResult<T>(errorCode.getCode(), message, null);
     }
 
     /**
-     * 失败返回结果
-     * @param message 提示信息
+     * Вернуть результат при неудаче
+     * @param message Оперативная информация
      */
     public static <T> CommonResult<T> failed(String message) {
         return new CommonResult<T>(ResultCode.FAILED.getCode(), message, null);
     }
 
     /**
-     * 失败返回结果
+     * Вернуть результат при неудаче
      */
     public static <T> CommonResult<T> failed() {
         return failed(ResultCode.FAILED);
     }
 
     /**
-     * 参数验证失败返回结果
+     * Ошибка проверки параметра, возвращается результат
      */
     public static <T> CommonResult<T> validateFailed() {
         return failed(ResultCode.VALIDATE_FAILED);
     }
 
     /**
-     * 参数验证失败返回结果
-     * @param message 提示信息
+     * Ошибка проверки параметра, возвращается результат
+     * @param message Оперативная информация
      */
     public static <T> CommonResult<T> validateFailed(String message) {
         return new CommonResult<T>(ResultCode.VALIDATE_FAILED.getCode(), message, null);
     }
 
     /**
-     * 未登录返回结果
+     * Не авторизован возвращает результаты
      */
     public static <T> CommonResult<T> unauthorized(T data) {
         return new CommonResult<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage(), data);
     }
 
     /**
-     * 未授权返回结果
+     * Не уполномочен возвращать результаты
      */
     public static <T> CommonResult<T> forbidden(T data) {
         return new CommonResult<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
