@@ -15,13 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * JwtToken生成的工具类
- * JWT token的格式：header.payload.signature
- * header的格式（算法、token的类型）：
+ * Инструменты, созданные JwtToken
+ * JWT формат токена：header.payload.signature
+ * Формат заголовка (алгоритм, тип токена)：
  * {"alg": "HS512","typ": "JWT"}
- * payload的格式（用户名、创建时间、生成时间）：
+ * Формат полезной нагрузки (имя пользователя, время создания, время генерации)：
  * {"sub":"wang","created":1489079981393,"exp":1489684781}
- * signature的生成算法：
+ * Алгоритм генерации подписи：
  * HMACSHA512(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
  * Created by macro on 2018/4/26.
  */
@@ -37,7 +37,7 @@ public class JwtTokenUtil {
     private String tokenHead;
 
     /**
-     * 根据负责生成JWT的token
+     * Согласно токену, ответственному за генерацию JWT
      */
     private String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
@@ -48,7 +48,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 从token中获取JWT中的负载
+     * Получите нагрузку в JWT с токена
      */
     private Claims getClaimsFromToken(String token) {
         Claims claims = null;
@@ -64,14 +64,14 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 生成token的过期时间
+     * Срок действия сгенерированного токена
      */
     private Date generateExpirationDate() {
         return new Date(System.currentTimeMillis() + expiration * 1000);
     }
 
     /**
-     * 从token中获取登录用户名
+     * Получите имя пользователя для входа из токена
      */
     public String getUserNameFromToken(String token) {
         String username;
@@ -85,10 +85,10 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 验证token是否还有效
+     * Убедитесь, что токен все еще действителен
      *
-     * @param token       客户端传入的token
-     * @param userDetails 从数据库中查询出来的用户信息
+     * @param token       Токен, переданный клиентом
+     * @param userDetails Информация о пользователе запрошена из базы данных
      */
     public boolean validateToken(String token, UserDetails userDetails) {
         String username = getUserNameFromToken(token);
@@ -96,7 +96,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 判断token是否已经失效
+     * Определите, истек ли срок действия токена
      */
     private boolean isTokenExpired(String token) {
         Date expiredDate = getExpiredDateFromToken(token);
@@ -104,7 +104,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 从token中获取过期时间
+     * Получите срок действия токена
      */
     private Date getExpiredDateFromToken(String token) {
         Claims claims = getClaimsFromToken(token);
@@ -112,7 +112,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 根据用户信息生成token
+     * Сгенерировать токен на основе информации о пользователе
      */
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
@@ -122,9 +122,9 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 当原来的token没过期时是可以刷新的
+     * Его можно обновить, когда срок действия исходного токена не истек.
      *
-     * @param oldToken 带tokenHead的token
+     * @param oldToken Токен токен Главный токен
      */
     public String refreshHeadToken(String oldToken) {
         if(StrUtil.isEmpty(oldToken)){
@@ -134,16 +134,16 @@ public class JwtTokenUtil {
         if(StrUtil.isEmpty(token)){
             return null;
         }
-        //token校验不通过
+        //проверка токена не удалась
         Claims claims = getClaimsFromToken(token);
         if(claims==null){
             return null;
         }
-        //如果token已经过期，不支持刷新
+        //Если срок действия токена истек, обновление не поддерживается
         if(isTokenExpired(token)){
             return null;
         }
-        //如果token在30分钟之内刚刷新过，返回原token
+        //Если токен обновляется в течение 30 минут, вернитесь к исходному токену
         if(tokenRefreshJustBefore(token,30*60)){
             return token;
         }else{
@@ -153,15 +153,15 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 判断token在指定时间内是否刚刚刷新过
-     * @param token 原token
-     * @param time 指定时间（秒）
+     * Определите, был ли токен только что обновлен в течение указанного времени
+     * @param token Токен Хара
+     * @param time Укажите время (секунды)
      */
     private boolean tokenRefreshJustBefore(String token, int time) {
         Claims claims = getClaimsFromToken(token);
         Date created = claims.get(CLAIM_KEY_CREATED, Date.class);
         Date refreshDate = new Date();
-        //刷新时间在创建时间的指定时间内
+        //Время обновления находится в пределах указанного времени создания.
         if(refreshDate.after(created)&&refreshDate.before(DateUtil.offsetSecond(created,time))){
             return true;
         }

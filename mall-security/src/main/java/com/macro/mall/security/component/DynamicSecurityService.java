@@ -5,12 +5,13 @@ import org.springframework.security.access.ConfigAttribute;
 import java.util.Map;
 
 /**
- * 动态权限相关业务类
+ * Бизнес-класс, связанный с динамическими разрешениями
  * Created by macro on 2020/2/7.
  */
 public interface DynamicSecurityService {
     /**
-     * 加载资源ANT通配符和资源对应MAP
+     * Подстановочный знак ANT ресурса загрузки бизнес-класса,
+     * связанный с динамическими разрешениями, и соответствующий ресурс MAP
      */
     Map<String, ConfigAttribute> loadDataSource();
 }

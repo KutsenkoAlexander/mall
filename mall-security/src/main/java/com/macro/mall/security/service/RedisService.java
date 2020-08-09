@@ -5,178 +5,178 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * redis操作Service
+ * Redis Operation Service
  * Created by macro on 2020/3/3.
  */
 public interface RedisService {
 
     /**
-     * 保存属性
+     * Сохранить свойства
      */
     void set(String key, Object value, long time);
 
     /**
-     * 保存属性
+     * Сохранить свойства
      */
     void set(String key, Object value);
 
     /**
-     * 获取属性
+     * Получить атрибуты
      */
     Object get(String key);
 
     /**
-     * 删除属性
+     * Удалить атрибут
      */
     Boolean del(String key);
 
     /**
-     * 批量删除属性
+     * Массовое удаление атрибутов
      */
     Long del(List<String> keys);
 
     /**
-     * 设置过期时间
+     * Установить время истечения
      */
     Boolean expire(String key, long time);
 
     /**
-     * 获取过期时间
+     * Получить срок действия
      */
     Long getExpire(String key);
 
     /**
-     * 判断是否有该属性
+     * Определите, есть ли этот атрибут
      */
     Boolean hasKey(String key);
 
     /**
-     * 按delta递增
+     * Приращение по дельте
      */
     Long incr(String key, long delta);
 
     /**
-     * 按delta递减
+     * Уменьшение на дельту
      */
     Long decr(String key, long delta);
 
     /**
-     * 获取Hash结构中的属性
+     * Получить атрибуты в структуре Hash
      */
     Object hGet(String key, String hashKey);
 
     /**
-     * 向Hash结构中放入一个属性
+     * Поместите атрибут в структуру хэша
      */
     Boolean hSet(String key, String hashKey, Object value, long time);
 
     /**
-     * 向Hash结构中放入一个属性
+     * Поместите атрибут в структуру хэша
      */
     void hSet(String key, String hashKey, Object value);
 
     /**
-     * 直接获取整个Hash结构
+     * Получите всю структуру хэша напрямую
      */
     Map<Object, Object> hGetAll(String key);
 
     /**
-     * 直接设置整个Hash结构
+     * Установить всю структуру хеширования напрямую
      */
     Boolean hSetAll(String key, Map<String, Object> map, long time);
 
     /**
-     * 直接设置整个Hash结构
+     * Установить всю структуру хеширования напрямую
      */
     void hSetAll(String key, Map<String, Object> map);
 
     /**
-     * 删除Hash结构中的属性
+     * Удалите атрибуты в структуре хеширования
      */
     void hDel(String key, Object... hashKey);
 
     /**
-     * 判断Hash结构中是否有该属性
+     * Определите, есть ли этот атрибут в структуре хеширования
      */
     Boolean hHasKey(String key, String hashKey);
 
     /**
-     * Hash结构中属性递增
+     * Дополнительные атрибуты в структуре хеширования
      */
     Long hIncr(String key, String hashKey, Long delta);
 
     /**
-     * Hash结构中属性递减
+     * Уменьшение атрибута в структуре хеша
      */
     Long hDecr(String key, String hashKey, Long delta);
 
     /**
-     * 获取Set结构
+     * Получить структуру набора
      */
     Set<Object> sMembers(String key);
 
     /**
-     * 向Set结构中添加属性
+     * Добавить атрибуты в структуру Set
      */
     Long sAdd(String key, Object... values);
 
     /**
-     * 向Set结构中添加属性
+     * Добавить атрибуты в структуру Set
      */
     Long sAdd(String key, long time, Object... values);
 
     /**
-     * 是否为Set中的属性
+     * Это атрибут в Set
      */
     Boolean sIsMember(String key, Object value);
 
     /**
-     * 获取Set结构的长度
+     * Получите длину структуры Set
      */
     Long sSize(String key);
 
     /**
-     * 删除Set结构中的属性
+     * Удалите атрибуты в структуре Set
      */
     Long sRemove(String key, Object... values);
 
     /**
-     * 获取List结构中的属性
+     * Получить атрибуты в структуре списка
      */
     List<Object> lRange(String key, long start, long end);
 
     /**
-     * 获取List结构的长度
+     * Получить длину структуры списка
      */
     Long lSize(String key);
 
     /**
-     * 根据索引获取List中的属性
+     * Получить атрибуты в Списке по индексу
      */
     Object lIndex(String key, long index);
 
     /**
-     * 向List结构中添加属性
+     * Добавить атрибуты в структуру списка
      */
     Long lPush(String key, Object value);
 
     /**
-     * 向List结构中添加属性
+     * Добавить атрибуты в структуру списка
      */
     Long lPush(String key, Object value, long time);
 
     /**
-     * 向List结构中批量添加属性
+     * Добавляйте атрибуты партиями в структуру списка
      */
     Long lPushAll(String key, Object... values);
 
     /**
-     * 向List结构中批量添加属性
+     * Добавляйте атрибуты партиями в структуру списка
      */
     Long lPushAll(String key, Long time, Object... values);
 
     /**
-     * 从List结构中移除属性
+     * Удалить атрибуты из структуры списка
      */
     Long lRemove(String key, long count, Object value);
 }

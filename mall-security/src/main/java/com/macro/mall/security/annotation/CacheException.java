@@ -3,7 +3,7 @@ package com.macro.mall.security.annotation;
 import java.lang.annotation.*;
 
 /**
- * 自定义注解，有该注解的缓存方法会抛出异常
+ * Пользовательская аннотация, метод кеширования с этой аннотацией вызовет исключение
  */
 @Documented
 @Target(ElementType.METHOD)
